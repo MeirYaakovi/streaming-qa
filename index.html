@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Streaming Platform QA Case Study — Meir Yaakovi</title>
+<meta name="description" content="An end-to-end manual QA cycle on a video-streaming platform: 301 test cases, 12 testing disciplines, 54 traceable defects and a NO-GO release decision. By Meir Yaakovi, QA Engineer.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Streaming Platform QA Case Study — Meir Yaakovi">
+<meta property="og:description" content="301 test cases, 12 disciplines, 54 defects, one clear release decision.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top">Meir Yaakovi<span> / QA</span></a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    <nav id="nav">
+      <a href="#verdict">Verdict</a>
+      <a href="#results">Results</a>
+      <a href="#method">Method</a>
+      <a href="#defects">Defects</a>
+      <a href="#toolchain">Toolchain</a>
+      <a href="#report">Report</a>
+      <a href="#posts">Posts</a>
+      <a href="#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow">QA Case Study · Web &amp; Mobile</p>
+    <h1>What happens when a QA engineer tests a streaming platform <em>for real</em>?</h1>
+    <p class="lead">
+      301 documented test cases, twelve testing disciplines, 54 defects traced one-to-one into Jira,
+      and a release decision set by criteria that were written <strong>before</strong> a single result came in.
+    </p>
+    <div class="cta-row">
+      <a class="btn primary" href="assets/report/meir-yaakovi-streaming-platform-str.pdf" target="_blank" rel="noopener noreferrer">📄 Read the full report (PDF)</a>
+      <a class="btn" href="#results">See the results ↓</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><strong data-count="301">301</strong><span>Test cases</span></div>
+      <div class="stat"><strong>62.1%</strong><span>Pass rate</span></div>
+      <div class="stat"><strong data-count="54">54</strong><span>Defects, 1:1 in Jira</span></div>
+      <div class="stat"><strong>NO-GO</strong><span>Release decision</span></div>
+    </div>
+
+    <p class="disclaimer">
+      Independent, unofficial QA training &amp; portfolio project. Not affiliated with, endorsed by or sponsored by the
+      service under test or its owner; the service is Netflix, and Netflix and related marks belong to Netflix, Inc.
+      Evidence is reduced or blurred, and Security-category defects are fully redacted.
+    </p>
+  </div>
+</div>
+
+<!-- VERDICT -->
+<section id="verdict" class="reveal">
+  <div class="wrap">
+    <p class="eyebrow">The decision</p>
+    <h2>A release decision defined up front</h2>
+    <p class="lead">Go / No-Go criteria were fixed before analyzing results, so the verdict follows the data rather than the other way round.</p>
+    <div class="verdict">
+      <div class="stamp"><small>RELEASE</small>NO-GO</div>
+      <div>
+        <h3>Why: one Show-Stop and six Critical defects are open.</h3>
+        <ul class="criteria">
+          <li><span class="tag go">GO</span> Zero open defects at Show-Stop or Critical severity.</li>
+          <li><span class="tag cgo">CONDITIONAL</span> Open defects only at Major or below, with documented workarounds.</li>
+          <li><span class="tag nogo">NO-GO</span> Any open defect at Show-Stop or Critical severity.</li>
+        </ul>
+        <p style="color:var(--muted);margin:16px 0 0;font-size:.92rem">
+          Primary blocker: profile PIN recovery that never sends its verification email. The areas with the most bugs were
+          <em>not</em> the areas carrying the most release risk. That gap is the real finding.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section id="results" class="reveal">
+  <div class="wrap">
+    <p class="eyebrow">The numbers</p>
+    <h2>Results at a glance</h2>
+    <p class="lead">187 passed, 54 failed, 4 blocked and 56 skipped. Every failure became exactly one traceable defect. Click any chart to enlarge.</p>
+    <div class="grid g3">
+      <figure class="chart-card"><img src="assets/charts/chart_status.png" alt="Test execution status: 187 pass, 54 fail, 4 blocked, 56 skipped" loading="lazy"><figcaption>Execution status</figcaption></figure>
+      <figure class="chart-card"><img src="assets/charts/chart_severity.png" alt="Defect severity: 1 show stop, 6 critical, 20 major, 20 moderate, 7 low" loading="lazy"><figcaption>Defect severity</figcaption></figure>
+      <figure class="chart-card"><img src="assets/charts/chart_area.png" alt="Test results by application area" loading="lazy"><figcaption>Results by application area</figcaption></figure>
+      <figure class="chart-card"><img src="assets/charts/chart_severity_by_area.png" alt="Defect severity by application area" loading="lazy"><figcaption>Severity by area</figcaption></figure>
+      <figure class="chart-card"><img src="assets/charts/chart_tested_priority_pie.png" alt="Tested vs not tested by priority" loading="lazy"><figcaption>Coverage by priority</figcaption></figure>
+      <figure class="chart-card"><img src="assets/charts/chart_skip_reasons.png" alt="All 56 skipped test cases by reason" loading="lazy"><figcaption>Why 56 cases were skipped</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- METHOD -->
+<section id="method" class="reveal">
+  <div class="wrap">
+    <p class="eyebrow">How it was done</p>
+    <h2>Method &amp; coverage</h2>
+    <p class="lead">Manual, hands-on testing on desktop Chrome and a real Android device, with confirmatory passes on Firefox and Brave.</p>
+    <ol class="steps">
+      <li><h3>Design</h3><p>Test cases written per feature area and prioritized, all kept in one master Excel workbook (the STD).</p></li>
+      <li><h3>Execute</h3><p>259 cases on Windows + Chrome, 29 on a Samsung Galaxy A56, the rest across other environments.</p></li>
+      <li><h3>Report</h3><p>Each failure logged as one Jira defect with severity, steps, expected vs actual and evidence.</p></li>
+      <li><h3>Decide</h3><p>Results judged against the Go / No-Go criteria set in advance, then summarized in a formal report.</p></li>
+    </ol>
+    <ul class="chips">
+      <li>Functional</li><li>UI/UX</li><li>Usability</li><li>Accessibility</li><li>Localization</li><li>Security</li>
+      <li>Performance</li><li>Load</li><li>Survival</li><li>Recovery</li><li>Compatibility</li><li>Integration</li>
+    </ul>
+    <div class="grid g2" style="margin-top:34px">
+      <figure class="chart-card"><img src="assets/charts/area_feature_map.png" alt="Functional area and feature coverage map" loading="lazy"><figcaption>Six functional areas and the features under each</figcaption></figure>
+      <div class="grid" style="gap:22px">
+        <figure class="chart-card"><img src="assets/charts/chart_category.png" alt="Test cases by category" loading="lazy"><figcaption>Test cases by discipline</figcaption></figure>
+        <figure class="chart-card"><img src="assets/charts/chart_environment.png" alt="Test cases by environment" loading="lazy"><figcaption>Test cases by environment</figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEFECTS -->
+<section id="defects" class="reveal">
+  <div class="wrap">
+    <p class="eyebrow">Findings</p>
+    <h2>Defects worth a closer look</h2>
+    <p class="lead">A selection from the 54 logged defects. Security-category defects are intentionally left out of this public page.</p>
+    <div class="grid g3">
+
+      <article class="card defect">
+        <div class="defect-top"><span class="id">NF-041 · Account Management</span><span class="sev stop">Show-Stop</span></div>
+        <h3>PIN recovery sends no verification email</h3>
+        <dl><dt>Steps</dt><dd>Start PIN recovery for a protected profile.</dd><dt>Expected</dt><dd>A verification email arrives.</dd><dt>Actual</dt><dd>Nothing is ever sent. The flow dead-ends and blocks release.</dd></dl>
+      </article>
+
+      <article class="card defect">
+        <div class="defect-top"><span class="id">NF-124 · Account Management</span><span class="sev crit">Critical</span></div>
+        <h3>No rate limiting on PIN entry</h3>
+        <dl><dt>Steps</dt><dd>Enter a wrong PIN 50 times in one minute.</dd><dt>Expected</dt><dd>Lockout, challenge or alert.</dd><dt>Actual</dt><dd>All 50 attempts accepted with no delay. A four-digit code has only 10,000 combinations.</dd></dl>
+      </article>
+
+      <article class="card defect">
+        <div class="defect-top"><span class="id">NF-290 · Discovery &amp; Search</span><span class="sev crit">Critical</span></div>
+        <h3>Search history leaks across profiles</h3>
+        <dl><dt>Steps</dt><dd>Click the search bar.</dd><dt>Expected</dt><dd>Only the active profile's searches.</dd><dt>Actual</dt><dd>Searches from a different profile were visible.</dd></dl>
+      </article>
+
+      <article class="card defect">
+        <div class="defect-top"><span class="id">NF-197 · Infrastructure</span><span class="sev crit">Critical</span></div>
+        <h3>Player unusable at 500% zoom</h3>
+        <dl><dt>Steps</dt><dd>Zoom the browser to 500%.</dd><dt>Expected</dt><dd>Content reflows to one column.</dd><dt>Actual</dt><dd>Overlapping elements make the player unusable for low-vision users. WCAG 2.1 Reflow failure.</dd></dl>
+      </article>
+
+      <article class="card defect">
+        <div class="defect-top"><span class="id">NF-196 · Infrastructure</span><span class="sev crit">Critical</span></div>
+        <h3>Total session loss after browser update</h3>
+        <dl><dt>Steps</dt><dd>Force a browser update during playback.</dd><dt>Expected</dt><dd>Session and position resume after restart.</dd><dt>Actual</dt><dd>Session lost, movie progress not saved.</dd></dl>
+      </article>
+
+      <article class="card defect">
+        <div class="defect-top"><span class="id">NF-301 · Streaming Interface</span><span class="sev major">Major</span></div>
+        <h3>Player UI stuck over a video call</h3>
+        <dl><dt>Steps</dt><dd>Answer a WhatsApp video call during playback, then end it.</dd><dt>Actual</dt><dd>Playback pauses, but the player UI stays as an overlay on the call screen.</dd></dl>
+        <figure class="shot"><img src="assets/evidence/nf-301.png" alt="Blurred evidence screenshot for NF-301, automatically watermarked" loading="lazy"></figure>
+      </article>
+
+    </div>
+    <div class="grid g2" style="margin-top:22px">
+      <article class="card defect">
+        <div class="defect-top"><span class="id">NF-300 · Streaming Interface</span><span class="sev mod">Moderate</span></div>
+        <h3>Player state lost after a call ends</h3>
+        <dl><dt>Actual</dt><dd>After hanging up a WhatsApp call, the app drops back to the details screen. The viewer has to find the title and press play again.</dd></dl>
+      </article>
+      <figure class="shot"><img src="assets/evidence/nf-300.png" alt="Blurred evidence photo for NF-300, automatically watermarked" loading="lazy"><figcaption>Evidence for NF-300, blurred and auto-watermarked with bug ID, severity and category.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLCHAIN -->
+<section id="toolchain" class="reveal">
+  <div class="wrap">
+    <p class="eyebrow">Behind the scenes</p>
+    <h2>One spreadsheet, three systems, zero copy-paste</h2>
+    <p class="lead">
+      Doing this by hand means hours of duplicated data entry. So the whole cycle runs from a single Excel workbook,
+      kept in sync with Jira and TestRail by small tools I built for the job.
+    </p>
+    <div class="pipeline">
+      <div class="node">STD.xlsx<small>single source of truth</small></div>
+      <span class="arrow">⇄</span>
+      <div class="node">Jira<small>defects</small></div>
+      <span class="arrow">+</span>
+      <div class="node">TestRail<small>test cases &amp; runs</small></div>
+      <span class="arrow">→</span>
+      <div class="node">STR report<small>generated automatically</small></div>
+    </div>
+    <div class="grid g3" style="margin-bottom:34px">
+      <div class="card"><h3>STDimport</h3><p style="color:var(--muted);margin:0;font-size:.92rem">Syncs the workbook with Jira and TestRail in both directions, uploads evidence, and resumes after network loss.</p></div>
+      <div class="card"><h3>QA Evidence Auto Watermark</h3><p style="color:var(--muted);margin:0;font-size:.92rem">Stamps every screenshot and recording with bug ID, severity and category, colour-coded by severity.</p></div>
+      <div class="card"><h3>STR Builder</h3><p style="color:var(--muted);margin:0;font-size:.92rem">Builds the full Software Test Report, with charts, tables and per-defect pages, straight from the workbook.</p></div>
+    </div>
+    <div class="grid g2">
+      <figure class="shot"><img src="assets/tools/stdimport-sync.png" alt="STDimport desktop app syncing test cases" loading="lazy"><figcaption>STDimport running a full sync of 301 test cases.</figcaption></figure>
+      <figure class="shot"><img src="assets/tools/jira-dashboard.png" alt="Jira dashboard with defect breakdown pie charts" loading="lazy"><figcaption>Jira dashboard: defects by priority, severity, test type and area.</figcaption></figure>
+    </div>
+    <p style="margin-top:22px;color:var(--muted);font-size:.92rem">
+      Estimated effect: a full sync takes about 20 minutes with the tools, versus an estimated 11+ hours by hand
+      (an estimate, not a measurement). More about these tools on my
+      <a href="https://meiryaakovi.github.io/Portfolio/" target="_blank" rel="noopener noreferrer">project portfolio →</a>
+    </p>
+  </div>
+</section>
+
+<!-- REPORT -->
+<section id="report" class="reveal">
+  <div class="wrap">
+    <p class="eyebrow">The deliverable</p>
+    <h2>The full Software Test Report</h2>
+    <div class="report-banner">
+      <div>
+        <p class="lead" style="margin-bottom:22px">
+          90 pages: scope, release criteria, environment, methodology, results, the complete test-case register
+          and a dedicated page for every defect, with its evidence.
+        </p>
+        <a class="btn primary" href="assets/report/meir-yaakovi-streaming-platform-str.pdf" target="_blank" rel="noopener noreferrer">📄 Open the PDF (25 MB)</a>
+      </div>
+      <div class="report-pages">
+        <img src="assets/report/page-6.png" alt="Report page: executive summary" loading="lazy">
+        <img src="assets/report/page-54.png" alt="Report page: example defect record" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POSTS -->
+<section id="posts" class="reveal">
+  <div class="wrap">
+    <p class="eyebrow">Shared on LinkedIn</p>
+    <h2>Stories from the test cycle</h2>
+    <p class="lead">I turn the most interesting findings into short posts. Here are some of them.</p>
+    <div class="grid g3">
+      <article class="card post-card">
+        <img src="assets/posts/bug-hunt.jpg" alt="Illustration of a beetle on network cables, a bug in the wires" loading="lazy">
+        <span class="post-meta">Bug story</span>
+        <h3>A PIN with no protection</h3>
+        <p>Fifty wrong attempts in a minute and the system never flinched. Bugs don't always look like a broken button. Sometimes a bug looks like silence.</p>
+      </article>
+      <article class="card post-card">
+        <img src="assets/posts/qa-defect-lifecycle.png" alt="Cheat sheet: the six stages of a defect life cycle" loading="lazy">
+        <span class="post-meta">QA cheat sheet</span>
+        <h3>The life cycle of a bug</h3>
+        <p>New, assigned, in progress, fixed, retest, closed. A bug you didn't document carefully comes back in the next release.</p>
+      </article>
+      <article class="card post-card">
+        <img src="assets/posts/bug-life-cycle-dark.png" alt="Bug life cycle graphic, dark version" loading="lazy">
+        <span class="post-meta">Field notes</span>
+        <h3>Bug life cycle, dark edition</h3>
+        <p>The same idea as a one-screen reference: where a defect lives, and where it can bounce back.</p>
+      </article>
+    </div>
+    <div class="cta-row" style="margin-top:30px">
+      <a class="btn" href="https://www.linkedin.com/posts/meir-yaakovi_netflix-str-meiryaakovi-ugcPost-7490930329407471616-z7Ef" target="_blank" rel="noopener noreferrer">LinkedIn: the full report announcement ↗</a>
+      <a class="btn" href="https://www.linkedin.com/posts/meir-yaakovi_qa-achacjacpaddacladgabradgaclacracwack-acwacoadaacsacpaddacx-ugcPost-7499009073800105985-LFgs" target="_blank" rel="noopener noreferrer">LinkedIn: video on how I work ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="reveal">
+  <div class="wrap">
+    <div class="about">
+      <img src="assets/profile.jpg" alt="Meir Yaakovi" loading="lazy">
+      <div>
+        <p class="eyebrow">About the author</p>
+        <h2 style="margin-bottom:10px">Meir Yaakovi</h2>
+        <p style="color:var(--muted);margin:0">
+          QA engineer who likes finding the quiet bugs, the ones that hide behind a working screen, and
+          building small tools so the paperwork never gets in the way of the testing.
+          This case study is my own independent project, from test design to final report.
+        </p>
+        <div class="more-links">
+          <a class="btn primary" href="https://www.linkedin.com/in/meir-yaakovi/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a class="btn" href="https://meiryaakovi.github.io/MY-QA/" target="_blank" rel="noopener noreferrer">My QA site ↗</a>
+          <a class="btn" href="https://meiryaakovi.github.io/Portfolio/" target="_blank" rel="noopener noreferrer">Project portfolio ↗</a>
+          <a class="btn" href="https://github.com/MeirYaakovi" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    © 2026 Meir Yaakovi. An independent, educational QA portfolio project, not affiliated with or endorsed by the
+    owner of the service under test. All trademarks belong to their respective owners.
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-label="Enlarged image"><img alt=""></div>
+<script src="script.js"></script>
+</body>
+</html>
